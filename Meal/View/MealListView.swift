@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MealBlock: View {
-    let idMeal: Int
+    let idMeal: String
     let strMeal: String
     let strMealThumb: String
     
@@ -26,17 +26,25 @@ struct MealBlock: View {
 }
 
 struct MealListView: View {
-    @State var meals: [Meal] = []
+    @StateObject var mealsVM = MealsViewModel()
+    
+//    var meals: [Meal] {
+//        if case let .success(meals) = mealsVM.phase {
+//            return meals
+//        } else {
+//            return []
+//        }
+//    }
+    
+//    @State var meals: [Meal] = []
     var category: String
     
     var body: some View {
         VStack(alignment: .center) {
-            
             Text(self.category)
-           
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(meals) { Meal in
+                    ForEach(mealsVM.meals) { Meal in
                         MealBlock(idMeal: Meal.idMeal, strMeal: Meal.strMeal, strMealThumb: Meal.strMealThumb)
                     }
                 }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -44,27 +52,14 @@ struct MealListView: View {
                 .padding(.top, 20)
             }
         }.onAppear {
-            meals = [
-                Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: self.category, strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-                Meal(id: 1, idMeal: 53049, strMeal: "balik", strCategory: self.category, strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-                Meal(id: 2, idMeal: 53049, strMeal: "Apam balik", strCategory: self.category, strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-            ]
+            Task {
+//                await mealsVM.loadMeals(from:self.category)
+                await mealsVM.fetchMeals(from: self.category)
+//                await mealsVM.fetchMealDetail(from: "53049")
+            }
         }
+        
     }
     
 }
 
-#Preview {
-    MealListView(meals: [
-        Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: "Dessert", strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-        Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: "Dessert", strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-        Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: "Dessert", strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-        Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: "Dessert", strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-        Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: "Dessert", strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-        Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: "Dessert", strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-        Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: "Dessert", strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-        Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: "Dessert", strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-        Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: "Dessert", strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"),
-        Meal(id: 0, idMeal: 53049, strMeal: "Apam balik", strCategory: "Dessert", strMealThumb: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg")
-    ], category: "Dessert")
-}
