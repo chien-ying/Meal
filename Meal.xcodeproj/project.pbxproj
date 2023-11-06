@@ -16,6 +16,10 @@
 		C15FDA572AF756E500657F00 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15FDA562AF756E500657F00 /* Meal.swift */; };
 		C15FDA592AF75DA600657F00 /* MealListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15FDA582AF75DA600657F00 /* MealListView.swift */; };
 		C15FDA5C2AF766B300657F00 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15FDA5B2AF766B300657F00 /* RemoteImage.swift */; };
+		C15FDA682AF844D600657F00 /* MealsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15FDA672AF844D600657F00 /* MealsAPI.swift */; };
+		C15FDA6A2AF847BB00657F00 /* MealsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15FDA692AF847BB00657F00 /* MealsAPIResponse.swift */; };
+		C15FDA6F2AF8546C00657F00 /* MealsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15FDA6E2AF8546C00657F00 /* MealsViewModel.swift */; };
+		C15FDA712AF87D4900657F00 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15FDA702AF87D4900657F00 /* Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,10 @@
 		C15FDA562AF756E500657F00 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		C15FDA582AF75DA600657F00 /* MealListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListView.swift; sourceTree = "<group>"; };
 		C15FDA5B2AF766B300657F00 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
+		C15FDA672AF844D600657F00 /* MealsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsAPI.swift; sourceTree = "<group>"; };
+		C15FDA692AF847BB00657F00 /* MealsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsAPIResponse.swift; sourceTree = "<group>"; };
+		C15FDA6E2AF8546C00657F00 /* MealsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsViewModel.swift; sourceTree = "<group>"; };
+		C15FDA702AF87D4900657F00 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +106,10 @@
 		C15FDA232AF7410C00657F00 /* Meal */ = {
 			isa = PBXGroup;
 			children = (
+				C15FDA6D2AF8544800657F00 /* ViewModel */,
+				C15FDA662AF844C000657F00 /* API */,
 				C15FDA532AF74D6000657F00 /* Model */,
 				C15FDA522AF74D4500657F00 /* View */,
-				C15FDA512AF74CF700657F00 /* ViewModel */,
 				C15FDA242AF7410C00657F00 /* MealApp.swift */,
 				C15FDA282AF7410E00657F00 /* Assets.xcassets */,
 				C15FDA2A2AF7410E00657F00 /* Preview Content */,
@@ -133,13 +142,6 @@
 			path = MealUITests;
 			sourceTree = "<group>";
 		};
-		C15FDA512AF74CF700657F00 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		C15FDA522AF74D4500657F00 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				C15FDA562AF756E500657F00 /* Meal.swift */,
+				C15FDA692AF847BB00657F00 /* MealsAPIResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,6 +166,23 @@
 				C15FDA5B2AF766B300657F00 /* RemoteImage.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		C15FDA662AF844C000657F00 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C15FDA672AF844D600657F00 /* MealsAPI.swift */,
+				C15FDA702AF87D4900657F00 /* Constant.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		C15FDA6D2AF8544800657F00 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C15FDA6E2AF8546C00657F00 /* MealsViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,9 +315,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C15FDA6A2AF847BB00657F00 /* MealsAPIResponse.swift in Sources */,
+				C15FDA682AF844D600657F00 /* MealsAPI.swift in Sources */,
 				C15FDA572AF756E500657F00 /* Meal.swift in Sources */,
+				C15FDA712AF87D4900657F00 /* Constant.swift in Sources */,
 				C15FDA252AF7410C00657F00 /* MealApp.swift in Sources */,
 				C15FDA5C2AF766B300657F00 /* RemoteImage.swift in Sources */,
+				C15FDA6F2AF8546C00657F00 /* MealsViewModel.swift in Sources */,
 				C15FDA592AF75DA600657F00 /* MealListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
