@@ -8,66 +8,53 @@
 import Foundation
 
 
-//enum DataFetchPhase<T> {
-//    case empty
-//    case success(T)
-//    case failure(Error)
-//}
 
 class MealsViewModel: ObservableObject {
     
-//    @Published var phase = DataFetchPhase<[Meal]>.empty
-    @Published var meals: [Meal] = []
+    @Published var phase = DataFetchPhase<[Meal]>.empty
+    
+    @Published var phase2 = DataFetchPhase<MealDetail>.empty
+
 
     private let mealsAPI = MealsAPI.shared
     
-//    init(meals: [Meal]? = nil) {
-//        if let meals = meals {
-//            self.phase = .success(meals)
-//        } else {
-//            self.phase = .empty
-//        }
-//    }
     
-//    func loadMeals(from category: String) async {
-//        if Task.isCancelled { return }
-//        do {
-//            let meals = try await mealsAPI.fetch(from: category)
-//            if Task.isCancelled { return }
-//            DispatchQueue.main.async {
-//                self.phase = .success(meals)
-//            }
-//            
-//        } catch {
-//            if Task.isCancelled { return }
-//            print(error.localizedDescription)
-//            DispatchQueue.main.async {
-//                self.phase = .failure(error)
-//            }
-//        }
-//    }
-    
-
-    func fetchMeals(from category: String) async {
-//        guard let mealsData: MealsData = await mealsAPI.fetch(fromURL: "https://themealdb.com/api/json/v1/1/filter.php?c=\(category)") else {return}
-//        DispatchQueue.main.async {
-//            self.meals = mealsData.meals
-//        }
-        
-        let meals = await mealsAPI.fetchMeals(from: category)
-        if let meals = meals {
+    func loadMeals(from category: String) async {
+        if Task.isCancelled { return }
+        do {
+            let meals = try await mealsAPI.fetchMeals(from: category)
+            if Task.isCancelled { return }
+            if let meals = meals {
+                DispatchQueue.main.async {
+                    self.phase = .success(meals)
+                }
+            }
+        } catch {
+            if Task.isCancelled { return }
             DispatchQueue.main.async {
-                self.meals = meals
+                self.phase = .failure(error)
             }
         }
     }
     
-    func fetchMealDetail(from idMeal: String) async {
-//        guard let mealDetailData: MealDetailData = await mealsAPI.fetch(fromURL: "https://themealdb.com/api/json/v1/1/lookup.php?i=\(idMeal)") else {return}
-        
-        let mealDetail = await mealsAPI.fetchMealDetail(idMeal: idMeal)
-        if let mealDetail = mealDetail {
-            print(mealDetail[0].strInstructions)
+    func loadMealDetail(from idMeal: String) async {
+        if Task.isCancelled { return }
+        do {
+            let mealDetail = try await mealsAPI.fetchMealDetail(idMeal: idMeal)
+            if Task.isCancelled { return }
+            if let mealDetail = mealDetail {
+                DispatchQueue.main.async {
+                    self.phase2 = .success(mealDetail[0])
+                    print(self.phase2)
+                }
+                
+            }
+        } catch {
+            if Task.isCancelled {return}
+            DispatchQueue.main.async {
+                self.phase2 = .failure(error)
+            }
         }
     }
+    
 }

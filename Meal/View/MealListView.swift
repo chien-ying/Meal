@@ -27,39 +27,39 @@ struct MealBlock: View {
 
 struct MealListView: View {
     @StateObject var mealsVM = MealsViewModel()
-    
-//    var meals: [Meal] {
-//        if case let .success(meals) = mealsVM.phase {
-//            return meals
-//        } else {
-//            return []
-//        }
-//    }
-    
-//    @State var meals: [Meal] = []
     var category: String
     
     var body: some View {
         VStack(alignment: .center) {
-            Text(self.category)
-            ScrollView {
-                VStack(spacing: 16) {
-                    ForEach(mealsVM.meals) { Meal in
-                        MealBlock(idMeal: Meal.idMeal, strMeal: Meal.strMeal, strMealThumb: Meal.strMealThumb)
-                    }
-                }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 28)
-                .padding(.top, 20)
+            switch mealsVM.phase {
+            case .empty:
+                ProgressView("Loading")
+            case .success(let meals):
+                Text(self.category)
+                ScrollView {
+                    VStack(spacing: 16) {
+                        ForEach(meals) { Meal in
+                            MealBlock(idMeal: Meal.idMeal, strMeal: Meal.strMeal, strMealThumb: Meal.strMealThumb)
+                        }
+                    }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 28)
+                    .padding(.top, 20)
+                }
+            case .failure(let error):
+                Text(self.category)
+                Text(error.localizedDescription)
             }
-        }.onAppear {
+        }
+        .onAppear {
             Task {
-//                await mealsVM.loadMeals(from:self.category)
-                await mealsVM.fetchMeals(from: self.category)
-//                await mealsVM.fetchMealDetail(from: "53049")
+                await mealsVM.loadMeals(from:self.category)
+//                await mealsVM.loadMealDetail(from: "53049")
             }
         }
         
     }
+    
+    
     
 }
 
