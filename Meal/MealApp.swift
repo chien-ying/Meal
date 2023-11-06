@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct MealApp: App {
+    var category = "Dessert"
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MealListView(category: self.category)
         }
     }
 }
