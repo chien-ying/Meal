@@ -19,7 +19,7 @@ The Meal App is a mobile application for iOS devices designed to help users brow
 ## Prerequisites
 
 - Xcode 15.0.1+
-- iOS device or simulator 17.0+
+- iOS device or simulator 15.0+
 - Stable internet connection
 
 ## Installation
