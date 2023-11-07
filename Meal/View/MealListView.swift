@@ -32,49 +32,30 @@ struct MealListView: View {
     
     let category: String
     
-    @State var loading: Bool = true
-    @State var error: Bool = false
-    @State var errMsg: String? = nil
-    
-    @State var meals: [Meal]? = nil
-    
     var body: some View {
         ZStack(alignment: .center) {
-            if (loading) {
-                ProgressView("Loading")
-            } else if (error) {
-                Text(errMsg ?? "Error!")
-            }
-            else {
+            switch mealsVM.phase {
+            case .success(_):
                 ScrollView {
-                    VStack(spacing: 16) {
-                        if let meals = meals {
-                            ForEach(meals) { Meal in
-                                MealBlock(idMeal: Meal.idMeal, strMeal: Meal.strMeal, strMealThumb: Meal.strMealThumb)
-                            }
-                        }
-                    }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 28)
+                    if let meals = mealsVM.meals {
+                        VStack(spacing: 16) {
+                                ForEach(meals) { Meal in
+                                    MealBlock(idMeal: Meal.idMeal, strMeal: Meal.strMeal, strMealThumb: Meal.strMealThumb)
+                                }
+                        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 28)
+                    }
                 }
+            case .failure(let error):
+                Text(error.localizedDescription)
+            case .empty:
+                ProgressView("Loading")
             }
         }
         .navigationTitle(self.category)
         .task{
             await mealsVM.loadMeals(from:self.category)
-            switch mealsVM.phase {
-            case .success(let meals):
-                self.meals = mealsVM.sortMealsAlphabetically(meals)
-                self.loading = false
-            case .failure(let error):
-                self.error = true
-                self.errMsg = error.localizedDescription
-            case .empty:
-                self.loading = true
-            }
         }
-        
     }
-    
-    
 }
 

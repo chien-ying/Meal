@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    let category: String = "Dessert"
     var body: some View {
         NavigationView{
-            MealListView(category: self.category)
+            MenuView()
         }
     }
 }

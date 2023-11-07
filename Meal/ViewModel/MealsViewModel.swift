@@ -13,6 +13,8 @@ class MealsViewModel: ObservableObject {
     
     @Published var phase = DataFetchPhase<[Meal]>.empty
     
+    @Published var meals: [Meal]? = nil
+    
     private let mealsAPI = MealsAPI.shared
     
     func loadMeals(from category: String) async {
@@ -22,6 +24,7 @@ class MealsViewModel: ObservableObject {
             if Task.isCancelled { return }
             if let meals = meals {
                 DispatchQueue.main.async {
+                    self.meals = self.sortMealsAlphabetically(meals)
                     self.phase = .success(meals)
                 }
             }

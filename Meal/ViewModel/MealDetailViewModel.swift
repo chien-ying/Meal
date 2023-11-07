@@ -11,6 +11,8 @@ import Foundation
 class MealDetailViewModel: ObservableObject {
     
     @Published var phase = DataFetchPhase<MealDetail>.empty
+    @Published var mealDetail: MealDetail? = nil
+    @Published var ingredientsMap: [[String]]? = nil
     
     private let mealsAPI = MealsAPI.shared
     
@@ -21,6 +23,10 @@ class MealDetailViewModel: ObservableObject {
             if Task.isCancelled { return }
             if let mealDetail = mealDetail {
                 DispatchQueue.main.async {
+                    self.mealDetail = mealDetail[0]
+                    if self.mealDetail != nil {
+                        self.ingredientsMap = self.createIngredientsMap(self.mealDetail!)
+                    }
                     self.phase = .success(mealDetail[0])
                 }
             }
