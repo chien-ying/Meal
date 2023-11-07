@@ -29,7 +29,7 @@ struct MealDetailView: View {
                 Text(errMsg ?? "Error!")
             } else {
                 ScrollView {
-                    VStack(alignment: .center) {
+                    VStack(alignment: .center, spacing: 12) {
                         RemoteImage(url: self.strMealThumb, width: 400, height: 300, cornerRadius: 10).padding()
                         if let ingredientsMap = ingredientsMap {
                             Text("Ingredients & Measurements").bold()
