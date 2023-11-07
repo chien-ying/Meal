@@ -29,9 +29,10 @@ struct MealDetailView: View {
                 Text(errMsg ?? "Error!")
             } else {
                 ScrollView {
-                    VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
+                    VStack(alignment: .center) {
                         RemoteImage(url: self.strMealThumb, width: 400, height: 300, cornerRadius: 10).padding()
                         if let ingredientsMap = ingredientsMap {
+                            Text("Ingredients & Measurements").bold()
                             ForEach(ingredientsMap, id: \.self) { im in
                                 HStack {
                                     Text(im[0])
@@ -40,6 +41,7 @@ struct MealDetailView: View {
                                 }
                             }
                         }
+                        Text("Instructions").bold()
                         Text(self.mealDetail?.strInstructions ?? "")
                     }.frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     .padding(.horizontal, 28)
@@ -51,9 +53,9 @@ struct MealDetailView: View {
             await mealDetailVM.loadMealDetail(from: idMeal)
             switch mealDetailVM.phase {
             case .success(let mealDetail):
-                self.loading = false
                 self.mealDetail = mealDetail
                 self.ingredientsMap = mealDetailVM.createIngredientsMap(mealDetail)
+                self.loading = false
             case .failure(let error):
                 self.error = true
                 self.errMsg = error.localizedDescription

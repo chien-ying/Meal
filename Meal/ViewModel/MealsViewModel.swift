@@ -33,4 +33,8 @@ class MealsViewModel: ObservableObject {
         }
     }
     
+    func sortMealsAlphabetically(_ meals: [Meal]) -> [Meal] {
+        return meals.sorted { $0.strMeal < $1.strMeal }
+    }
+    
 }
